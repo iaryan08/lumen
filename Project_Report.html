@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Project Report: Lumen</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; max-width: 800px; margin: 0 auto; padding: 20px; }
+        h1, h2, h3 { color: #333; }
+        .details { background: #f9f9f9; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+        .details p { margin: 5px 0; }
+        code { background: #eee; padding: 2px 4px; border-radius: 4px; font-family: monospace; }
+        hr { border: 0; border-top: 1px solid #ddd; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+    <h1>Project Report: Lumen — AI Knowledge & Code Insight Assistant</h1>
+
+    <div class="details">
+        <p><strong>Student Name:</strong> Aryan Mehra</p>
+        <p><strong>Enrollment/Roll No:</strong> 23115025</p>
+        <p><strong>Email:</strong> aryan_m@ee.iitr.ac.in</p>
+        <p><strong>Project Domain:</strong> Technology</p>
+    </div>
+
+    <h2>1. Abstract</h2>
+    <p><strong>Lumen</strong> is a dual-mode, full-stack Artificial Intelligence assistant built on a shared Retrieval-Augmented Generation (RAG) pipeline. The system provides two primary modes of operation:</p>
+    <ul>
+        <li><strong>Study Mode:</strong> A conversational interface that allows users to chat with their own documents, notes, and PDFs, featuring inline citations to source texts.</li>
+        <li><strong>Code Mode:</strong> An AI-powered Pull Request (PR) and diff summarizer that analyzes codebase changes to generate reviews, identify risks, and offer plain-English summaries.</li>
+    </ul>
+    <p>By leveraging a shared backend abstraction for ingestion, chunking, embedding, retrieval, and LLM generation, Lumen demonstrates robust system design and resource efficiency.</p>
+
+    <h2>2. Technology Stack</h2>
+    <p>The application is structured as a decoupled frontend-backend architecture:</p>
+    <ul>
+        <li><strong>Backend Environment:</strong> Python, FastAPI</li>
+        <li><strong>Vector Database:</strong> ChromaDB (Local, file-based for privacy and zero infrastructure overhead)</li>
+        <li><strong>Embeddings:</strong> <code>sentence-transformers</code> (<code>all-MiniLM-L6-v2</code>)</li>
+        <li><strong>Large Language Model (LLM):</strong> Anthropic Claude 3.5 Sonnet (via API) with extensible fallback capabilities.</li>
+        <li><strong>Frontend Framework:</strong> Next.js (TypeScript), Tailwind CSS, shadcn/ui.</li>
+        <li><strong>Data Parsers:</strong> <code>GitPython</code>, <code>unidiff</code>, <code>pypdf</code>, <code>markdown</code>.</li>
+    </ul>
+
+    <h2>3. System Architecture & The RAG Pipeline</h2>
+    <p>The core of Lumen is its mode-agnostic RAG pipeline. Rather than building separate systems for document querying and code analysis, Lumen centralizes the following 5-step pipeline:</p>
+    <ol>
+        <li><strong>Ingestion Service:</strong> Accepts heterogeneous inputs (PDFs, Markdown notes, Git diffs) and normalizes them into plain text.</li>
+        <li><strong>Chunking Service:</strong> Implements sliding-window algorithms to segment text into context-rich chunks (e.g., 500 tokens with 50-token overlaps) to preserve semantic meaning.</li>
+        <li><strong>Embedding Service:</strong> Converts text chunks into high-dimensional vector representations using Sentence Transformers and persists them alongside metadata in ChromaDB.</li>
+        <li><strong>Retrieval Service:</strong> Processes user queries, converting them into vectors to execute a similarity search (Cosine Similarity/L2) within ChromaDB, retrieving the top-K most relevant chunks.</li>
+        <li><strong>Generation Service:</strong> Constructs a dynamic prompt containing the retrieved context and the user's query, invoking the LLM to synthesize an accurate, hallucination-free response complete with citations.</li>
+    </ol>
+
+    <h2>4. Implementation Details</h2>
+    <p>The project features a highly decoupled and modular service architecture:</p>
+    <ul>
+        <li><strong>FastAPI Core</strong>: The backend entry point exposes robust endpoints for document ingestion, query processing, and code diff analysis.</li>
+        <li><strong>Data Parsers</strong>: Custom parsing logic handles various file types, seamlessly converting PDF bytes and markdown files into structured text for the RAG engine.</li>
+        <li><strong>Vector Search Engine</strong>: ChromaDB acts as the local knowledge base, guaranteeing data privacy while providing rapid, hardware-accelerated similarity search.</li>
+        <li><strong>Context-Aware Generation</strong>: By dynamically injecting retrieved documents into the LLM context window, Lumen minimizes hallucinations and provides direct citations to the source text.</li>
+    </ul>
+
+    <h2>5. Conclusion</h2>
+    <p>Lumen provides a scalable, privacy-respecting (via local vector storage), and highly modular approach to AI-assisted learning and software development. The shared RAG architecture ensures that adding new data modalities in the future (e.g., audio transcripts, video captions) will only require writing a new ingestion adapter, without altering the underlying search and generation pipeline.</p>
+
+</body>
+</html>

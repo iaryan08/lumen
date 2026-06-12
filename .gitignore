@@ -1,0 +1,23 @@
+# Python
+venv/
+__pycache__/
+*.pyc
+
+# Node
+node_modules/
+.next/
+out/
+build/
+
+# Database
+chroma_db/
+
+# Environment Variables
+.env
+.env.local
+.env.*
+
+# Deliverables & AI Specs
+*.zip
+lumen_project_spec.md
+zip_deliverable.py
