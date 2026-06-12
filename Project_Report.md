@@ -1,8 +1,8 @@
-# Project Report: Lumen — AI Knowledge & Code Insight Assistant
+# Project Report: Lumen - AI Knowledge & Code Insight Assistant
 
-**Student Name:** Aryan Mehra  
-**Enrollment/Roll No:** 23115025  
-**Email:** aryan_m@ee.iitr.ac.in  
+**Student Names:** Aryan Mehra, Sahil  
+**Enrollment/Roll Nos:** 23115025, 23115127  
+**Emails:** aryan_m@ee.iitr.ac.in, sahil1@ee.iitr.ac.in  
 **Project Domain:** Technology  
 
 ---
